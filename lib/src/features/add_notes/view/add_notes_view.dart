@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:notes_project/src/features/home_page/view/home_page_view.dart';
+import 'package:notes_project/src/features/add_notes/model/notes_model.dart';
 
-class AddNotes extends StatelessWidget {
+class AddNotes extends StatefulWidget {
   const AddNotes({Key? key}) : super(key: key);
 
   static const route = "addNotes";
 
   @override
+  _AddNotesState createState() => _AddNotesState();
+}
+
+class _AddNotesState extends State<AddNotes> {
+  Note nota = Note();
+
+  @override
   Widget build(BuildContext context) {
-    String entrada = '';
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
@@ -24,6 +30,9 @@ class AddNotes extends StatelessWidget {
                 border: UnderlineInputBorder(),
                 labelText: 'Title:',
               ),
+              onChanged: (value) => {
+                nota.title = value,
+              },
             ),
             SizedBox(height: 20),
             Expanded(
@@ -38,7 +47,7 @@ class AddNotes extends StatelessWidget {
                       labelText: 'Text',
                     ),
                     onChanged: (value) {
-                      entrada = value;
+                      nota.text = value;
                     },
                   ),
                 ),
@@ -50,7 +59,7 @@ class AddNotes extends StatelessWidget {
               child: SizedBox(
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pop(entrada);
+                    Navigator.of(context).pop(nota);
                   },
                   child: Text("Salvar"),
                 ),
